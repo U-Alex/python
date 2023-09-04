@@ -38,10 +38,7 @@ source_string = re.sub(r'\W ', ' ', source_string.lower())
 freq_dict = dict()
 
 for word in source_string.split():
-    if freq_dict.get(word, False):
-        freq_dict[word] += 1
-    else:
-        freq_dict[word] = 1
+    freq_dict[word] = freq_dict.get(word, 0) + 1
 
 sorted_tuple = sorted(freq_dict.items(), key=lambda x: -x[1])
 
