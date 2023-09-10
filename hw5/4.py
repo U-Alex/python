@@ -3,12 +3,9 @@
 
 
 def fib():
-    f1 = 0
-    f2 = 1
+    f1, f2 = 0, 1
     while True:
-        fs = f1 + f2
-        f1 = f2
-        f2 = fs
+        f1, f2 = f2, f1 + f2
         yield f1
 
 
