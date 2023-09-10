@@ -12,6 +12,6 @@ def fib():
         yield f1
 
 
-fib_num = iter(fib())
+fib_num = fib()
 for _ in range(40):
     print(next(fib_num), end=' ')
