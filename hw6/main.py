@@ -10,8 +10,11 @@ if __name__ == '__main__':
     print_board()
 
     count_ = 1
+    attempt = 0
     while count_ < 5:
+        attempt += 1
         if random_queens():
-            print(f'случайная расстановка {count_}: ')
+            print(f'случайная расстановка {count_} (попыток: {attempt}): ')
             print_board()
             count_ += 1
+            attempt = 0
