@@ -30,10 +30,7 @@ def mass_rename(*, dir_path='', final_name, len_count=4, source_ext, final_ext, 
             t_name.append('')
         if source_ext == '*' or source_ext == t_name[1]:
             t_name[1] = final_ext
-            if old_letters:
-                t_name[0] = t_name[0][old_letters[0] - 1: old_letters[1]:]
-            else:
-                t_name[0] = ''
+            t_name[0] = t_name[0][old_letters[0] - 1: old_letters[1]:] if old_letters else ''
             t_cnt = '_' + ('0' * len_count + str(cnt))[-len_count::]
             t_name[0] += final_name + t_cnt
             cnt += 1
@@ -43,6 +40,6 @@ def mass_rename(*, dir_path='', final_name, len_count=4, source_ext, final_ext, 
 
 
 if __name__ == '__main__':
-    #mass_rename(dir_path='files', final_name='new', len_count=3, source_ext='py', final_ext='tmp', old_letters=[1, 3])
-    mass_rename(dir_path='files', final_name='new', len_count=4, source_ext='py', final_ext='tmp')
+    mass_rename(dir_path='files', final_name='_new', len_count=3, source_ext='py', final_ext='tmp', old_letters=[1, 4])
+    #mass_rename(dir_path='files', final_name='new', len_count=4, source_ext='py', final_ext='tmp')
     print(mass_rename.__doc__)
