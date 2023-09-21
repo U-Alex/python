@@ -1,0 +1,143 @@
+[
+    {
+        "current_dir": {
+            "parent": "",
+            "name": "files",
+            "f_cnt": 16,
+            "f_size": 187932
+        },
+        "inside_dirs": [
+            {
+                "name": "files_2",
+                "f_cnt": 4,
+                "f_size": 320
+            },
+            {
+                "name": "files_3",
+                "f_cnt": 6,
+                "f_size": 158634
+            }
+        ],
+        "inside_files": [
+            {
+                "name": "0000.py0",
+                "f_size": 0
+            },
+            {
+                "name": "11111.py",
+                "f_size": 20664
+            },
+            {
+                "name": "222.22.py",
+                "f_size": 5418
+            },
+            {
+                "name": "3333..py",
+                "f_size": 0
+            },
+            {
+                "name": "444_04.py",
+                "f_size": 2842
+            },
+            {
+                "name": "5555.py",
+                "f_size": 54
+            }
+        ]
+    },
+    {
+        "current_dir": {
+            "parent": "files",
+            "name": "files_3",
+            "f_cnt": 6,
+            "f_size": 158634
+        },
+        "inside_dirs": [
+            {
+                "name": "files_4",
+                "f_cnt": 3,
+                "f_size": 11340
+            }
+        ],
+        "inside_files": [
+            {
+                "name": "0000.py0",
+                "f_size": 0
+            },
+            {
+                "name": "11111.py",
+                "f_size": 11340
+            },
+            {
+                "name": "222.22.py",
+                "f_size": 135954
+            }
+        ]
+    },
+    {
+        "current_dir": {
+            "parent": "files_3",
+            "name": "files_4",
+            "f_cnt": 3,
+            "f_size": 11340
+        },
+        "inside_dirs": [
+            {
+                "name": "empty",
+                "f_cnt": 0,
+                "f_size": 0
+            }
+        ],
+        "inside_files": [
+            {
+                "name": "0000.py0",
+                "f_size": 0
+            },
+            {
+                "name": "11111.py",
+                "f_size": 0
+            },
+            {
+                "name": "222.22.py",
+                "f_size": 11340
+            }
+        ]
+    },
+    {
+        "current_dir": {
+            "parent": "files_4",
+            "name": "empty",
+            "f_cnt": 0,
+            "f_size": 0
+        },
+        "inside_dirs": [],
+        "inside_files": []
+    },
+    {
+        "current_dir": {
+            "parent": "files",
+            "name": "files_2",
+            "f_cnt": 4,
+            "f_size": 320
+        },
+        "inside_dirs": [],
+        "inside_files": [
+            {
+                "name": "0000.py0",
+                "f_size": 0
+            },
+            {
+                "name": "11111.py",
+                "f_size": 0
+            },
+            {
+                "name": "222.22.py",
+                "f_size": 320
+            },
+            {
+                "name": "5555.py",
+                "f_size": 0
+            }
+        ]
+    }
+]
