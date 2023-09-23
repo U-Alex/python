@@ -4,8 +4,8 @@ import math
 from decorators import multi_quad, save_result
 
 
-@save_result
-@multi_quad
+@save_result(filename='result.json')
+@multi_quad(rows_count=20)
 def quad_eq(a: float, b: float, c: float) -> list:
     discr = float(b ** 2 - 4 * a * c)
     if discr < 0 or a == 0:
