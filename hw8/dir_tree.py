@@ -50,16 +50,16 @@ def analyse_dir(path: str):
     rows = [['type', 'parent', 'name', 'count', 'size']]
     for dct in result:
         rows.append(['DIR',
-                    dct['current_dir']['parent'],
-                    dct['current_dir']['name'],
-                    dct['current_dir']['f_cnt'],
-                    dct['current_dir']['f_size']])
+                     dct['current_dir']['parent'],
+                     dct['current_dir']['name'],
+                     dct['current_dir']['f_cnt'],
+                     dct['current_dir']['f_size']])
         for fl in dct['inside_files']:
             rows.append(['File',
-                        dct['current_dir']['name'],
-                        fl['name'],
-                        '',
-                        fl['f_size']])
+                         dct['current_dir']['name'],
+                         fl['name'],
+                         '',
+                         fl['f_size']])
 
     with open('report.csv', 'w', newline='', encoding='utf-8') as f_scv:
         csv_write = csv.writer(f_scv, dialect='excel')
@@ -70,5 +70,3 @@ def analyse_dir(path: str):
 
 if __name__ == '__main__':
     analyse_dir('files')
-
-
