@@ -2,11 +2,15 @@ import math
 
 
 class Triangle:
-    def __init__(self, a, b, c):
+    def __new__(cls, a, b, c):
         if (a < b + c) and (b < a + c) and (c < a + b):
-            self.a, self.b, self.c = a, b, c
+            instance = super().__new__(cls)
+            return instance
         else:
             raise Exception(f'неверные параметры')
+
+    def __init__(self, a, b, c):
+        self.a, self.b, self.c = a, b, c
 
     def perimeter(self):
         return self.a + self.b + self.c
