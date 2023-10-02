@@ -27,7 +27,7 @@ class Session:
     def bonus_transaction(self):
         if self.user.transactions_count >= self.param.transactions_count:
             self.user.transactions_count = 0
-            percent = self.user.money * self.param.transactions_interest / 100
+            percent = self.user.get_money() * self.param.transactions_interest / 100
             self.user.add_money(percent, bonus=True)
 
     def is_bonus_transactions(self):
@@ -40,7 +40,7 @@ class Session:
         percent = user_sum * self.param.withdrawal_interest / 100
         if percent < self.param.withdrawal_min: percent = self.param.withdrawal_min
         if percent > self.param.withdrawal_max: percent = self.param.withdrawal_max
-        if self.user.money < user_sum + percent:
+        if self.user.get_money() < user_sum + percent:
             raise Exception('не достаточно средств на счете')
         self.user.sub_money(user_sum + percent)
         self.bonus_transaction()
@@ -48,12 +48,12 @@ class Session:
         return percent
 
     def dispossession(self):
-        if self.user.money >= self.param.dispossession_threshold:
-            percent = self.user.money * self.param.dispossession_interest / 100
+        if self.user.get_money() >= self.param.dispossession_threshold:
+            percent = self.user.get_money() * self.param.dispossession_interest / 100
             self.user.sub_money(percent, bonus=True)
 
     def is_dispossession(self):
-        if self.user.money >= self.param.dispossession_threshold:
-            percent = self.user.money * self.param.dispossession_interest / 100
+        if self.user.get_money() >= self.param.dispossession_threshold:
+            percent = self.user.get_money() * self.param.dispossession_interest / 100
             return [self.param.dispossession_interest, percent.quantize(Decimal("1.00"))]
         return False
