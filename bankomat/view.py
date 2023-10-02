@@ -20,22 +20,32 @@ class View:
         self.session = None
 
     def auth(self):
-        user_name = 'UAA'.title()  # input('введите имя: ').title()
-        pattern = re.compile("^[a-zA-Zа-яА-ЯёЁ]+$")
-        if pattern.search(user_name):
-            self.session = Session(user_name)
-            print(f'добро пожаловать, {user_name}')
-            print('создан новый счет' if self.session.is_new_user() else 'загрузка данных счета...')
-            self.start()
-        else:
-            print('нужно ввести имя')
-        print('сессия закончена')
+        while True:
+            user_name = input('Авторизация... введите имя  (x - выход): ').title()
+            if user_name in ['X', 'Х']:
+                break
+            pattern = re.compile("^[a-zA-Zа-яА-ЯёЁ]{2,}$")
+            if pattern.search(user_name):
+                try:
+                    self.session = Session(user_name)
+                    print(f'добро пожаловать, {user_name}')
+                    print('создан новый счет' if self.session.is_new_user() else 'загрузка данных счета...')
+                    self.start()
+                except Exception as err:
+                    print(err)
+                    continue
+            else:
+                print('нужно ввести имя')
+                continue
+
+            self.session = None
+            print(f'сессия пользователя {user_name} закончена')
 
     def start(self):
         self.show_menu()
         while True:
             user_input = input("input operation: ")
-            if user_input == 'x':
+            if user_input in ['X', 'Х', 'x', 'х']:
                 break
             operation = self.operations.get(user_input, False)
             if operation:

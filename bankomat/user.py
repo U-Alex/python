@@ -4,13 +4,21 @@ import os
 
 class User:
     users_dir = 'users'
+    users_auth = []
 
     def __init__(self, name):
         self.name = name
+        if name in self.users_auth:
+            raise Exception('пользователь уже присоединен к сессии')
+        self.__class__.users_auth.append(name)
         self.new_user = False
         self.money = 0
         self.transactions_count = 0
         self.loading()
+
+    def __del__(self):
+        if self.name in self.users_auth:
+            self.users_auth.remove(self.name)
 
     def __str__(self):
         return f"клиент: {self.name}, средств на счете: {self.money} у.е."
