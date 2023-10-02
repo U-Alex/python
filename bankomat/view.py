@@ -33,13 +33,14 @@ class View:
                     self.start()
                 except Exception as err:
                     print(err)
+                    self.session = None
                     continue
             else:
                 print('нужно ввести имя')
                 continue
 
             self.session = None
-            print(f'сессия пользователя {user_name} закончена')
+            print(f'сессия пользователя {user_name} закончена\n')
 
     def start(self):
         self.show_menu()
@@ -68,6 +69,7 @@ class View:
         self.session.top_up(user_sum)
         if perc := self.session.is_bonus_transactions():
             print(f"зачислено {perc[0]} процента за каждую {perc[1]} операцию")
+        self.show_user()
 
     def take_off(self):
         user_sum = self.session.round_money(float(input("введите сумму снятия: ")))
@@ -81,6 +83,6 @@ class View:
                 print(f"зачислено {perc[0]} процента за каждую {perc[1]} операцию")
         except Exception as err:
             print(err)
-
+        self.show_user()
 
 

@@ -1,4 +1,4 @@
-from decimal import Decimal  # TODO
+from decimal import Decimal
 
 from parameters import Param
 from user import User
@@ -55,5 +55,5 @@ class Session:
     def is_dispossession(self):
         if self.user.money >= self.param.dispossession_threshold:
             percent = self.user.money * self.param.dispossession_interest / 100
-            return [self.param.dispossession_interest, percent]
+            return [self.param.dispossession_interest, percent.quantize(Decimal("1.00"))]
         return False

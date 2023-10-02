@@ -1,17 +1,18 @@
+from decimal import Decimal
 
 
 class Param:
-    dispossession_threshold = 5_000_000
-    dispossession_interest = 10         # налог на богатство
+    dispossession_threshold = Decimal(5_000_000)
+    dispossession_interest = 10                 # налог на богатство
 
-    multiplicity = 50                   # кратность
+    multiplicity = 50                           # кратность
 
-    transactions_interest = 3           # процент за бонусную операцию
-    transactions_count = 3              # количество операций для начисления процента
+    transactions_interest = 3                   # процент за бонусную операцию
+    transactions_count = 3                      # количество операций для начисления процента
 
-    withdrawal_interest = 1.5           # процент за снятие
-    withdrawal_min = 30                 # минимальный процент за снятие
-    withdrawal_max = 600                # максимальный процент за снятие
+    withdrawal_interest = 1.5                   # процент за снятие
+    withdrawal_min = Decimal(30)                # минимальный процент за снятие
+    withdrawal_max = Decimal(600)               # максимальный процент за снятие
 
     _instance = None
 
