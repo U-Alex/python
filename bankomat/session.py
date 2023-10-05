@@ -5,8 +5,9 @@ from user import User
 
 
 class Session:
-    def __init__(self, user_name):
-        self.user = User(user_name)
+    def __init__(self, user_name, logger):
+        self.logger = logger
+        self.user = User(user_name, self.logger)
         self.param = Param()
 
     def show_user(self):
@@ -24,6 +25,7 @@ class Session:
             self.dispossession()
         self.user.add_money(user_sum)
         self.bonus_transaction()
+        self.logger.info(f'{self.user.name} top_up success')
 
     def bonus_transaction(self):
         if self.user.transactions_count >= self.param.transactions_count:
@@ -44,11 +46,13 @@ class Session:
             percent = self.param.withdrawal_max
         disp = self.is_dispossession()
         if self.user.get_money() < user_sum + percent + (disp[1] if disp else 0):
+            self.logger.warning(f'{self.user.name} не достаточно средств на счете ({self.user.get_money()} < {user_sum + percent + (disp[1] if disp else 0)})')
             raise Warning('не достаточно средств на счете')
         if disp:
             self.dispossession()
         self.user.sub_money(user_sum + percent)
         self.bonus_transaction()
+        self.logger.info(f'{self.user.name} take_off success')
         return percent
 
     def dispossession(self):

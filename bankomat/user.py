@@ -8,10 +8,12 @@ class User:
     users_dir = 'users'
     users_auth = []
 
-    def __init__(self, name):
+    def __init__(self, name, logger):
         self.name = name
+        self.logger = logger
         if name in self.users_auth:
-            raise Exception('пользователь уже присоединен к сессии')
+            self.logger.error(f'{self.name} is already joined to the session')
+            raise IndexError('пользователь уже присоединен к сессии')
         self.__class__.users_auth.append(name)
         self.new_user = False
         self.__money = Decimal('0.00')
@@ -34,11 +36,12 @@ class User:
         except IOError:
             self.saving()
             self.new_user = True
+            self.logger.info(f'{self.name} new_user')
 
     def saving(self):
-        save_dict = self.__dict__.copy()
-        save_dict['_User__money'] = str(save_dict['_User__money'].quantize(Decimal("1.00")))
-        save_dict.pop('new_user')
+        save_dict = {"name": self.name,
+                     "_User__money": str(self.__dict__['_User__money'].quantize(Decimal("1.00"))),
+                     "transactions_count": self.transactions_count}
         Orm.saving(self, save_dict)
 
     def get_money(self) -> Decimal:

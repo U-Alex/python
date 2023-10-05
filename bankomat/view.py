@@ -1,3 +1,4 @@
+import logging
 import re
 from session import Session
 
@@ -16,8 +17,19 @@ class View:
             "x": "выход"
             }
 
-    def __init__(self):
+    def __init__(self, debug=False):
         self.session = None
+        self.logger = logging.getLogger('bankomat')
+        self.init_log(debug)
+
+    def init_log(self, debug):
+        self.logger.setLevel(logging.DEBUG if debug else logging.INFO)
+        logger_handler = logging.FileHandler('logging.log', encoding='utf-8')
+        logger_handler.setLevel(logging.DEBUG if debug else logging.INFO)
+        logger_formatter = logging.Formatter('%(name)s - %(asctime)s - %(levelname)s - %(message)s')
+        logger_handler.setFormatter(logger_formatter)
+        self.logger.addHandler(logger_handler)
+        self.logger.debug('Настройка логирования окончена!')
 
     def auth(self):
         while True:
@@ -27,16 +39,20 @@ class View:
             pattern = re.compile("^[a-zA-Zа-яА-ЯёЁ]{2,}$")
             if pattern.search(user_name):
                 try:
-                    self.session = Session(user_name)
+                    self.logger.info(f'{user_name} login')
+                    self.session = Session(user_name, self.logger)
                     print(f'добро пожаловать, {user_name}')
                     print('создан новый счет' if self.session.is_new_user() else 'загрузка данных счета...')
                     self.start()
                 except IOError as err:
+                    self.logger.critical(f'{user_name} (IOError) {err}')
                     print(f'ошибка ввода-вывода {err}\n дальнейшее выполнение невозможно')
                 except (IndexError, KeyError) as err:
+                    self.logger.critical(f'{user_name} (IndexError, KeyError) {err}')
                     print(f'внутренняя ошибка {err}\n дальнейшее выполнение невозможно')
                 finally:
                     self.session = None
+                    self.logger.info(f'{user_name} logout')
                     print(f'сессия пользователя {user_name} закончена\n')
             else:
                 print('нужно ввести имя')
@@ -62,7 +78,11 @@ class View:
         print(self.session.show_user())
 
     def top_up(self):
-        user_sum = self.session.round_money(abs(float(input("введите сумму пополнения: "))))
+        try:
+            user_sum = self.session.round_money(abs(float(input("введите сумму пополнения: "))))
+        except ValueError:
+            print('неверный ввод, отмена операции')
+            return
         print(f'сумма округлена до {user_sum}, пополнение...')
         if disp := self.session.is_dispossession():
             print(f"внимание! будет снято {disp[0]} процентов - {disp[1]} у.е. (налог на богатство)")
@@ -72,7 +92,11 @@ class View:
         self.show_user()
 
     def take_off(self):
-        user_sum = self.session.round_money(abs(float(input("введите сумму снятия: "))))
+        try:
+            user_sum = self.session.round_money(abs(float(input("введите сумму снятия: "))))
+        except ValueError:
+            print('неверный ввод, отмена операции')
+            return
         print(f'сумма округлена до {user_sum}, снятие...')
         if disp := self.session.is_dispossession():
             print(f"внимание! будет снято {disp[0]} процентов - {disp[1]} у.е (налог на богатство)")
