@@ -20,7 +20,8 @@ class Session:
         return res if res != 0 else self.param.multiplicity
 
     def top_up(self, user_sum):
-        self.dispossession()
+        if self.is_dispossession():
+            self.dispossession()
         self.user.add_money(user_sum)
         self.bonus_transaction()
 
@@ -36,21 +37,23 @@ class Session:
         return False
 
     def take_off(self, user_sum):
-        self.dispossession()
         percent = user_sum * self.param.withdrawal_interest / 100
-        if percent < self.param.withdrawal_min: percent = self.param.withdrawal_min
-        if percent > self.param.withdrawal_max: percent = self.param.withdrawal_max
-        if self.user.get_money() < user_sum + percent:
-            raise Exception('не достаточно средств на счете')
+        if percent < self.param.withdrawal_min:
+            percent = self.param.withdrawal_min
+        if percent > self.param.withdrawal_max:
+            percent = self.param.withdrawal_max
+        disp = self.is_dispossession()
+        if self.user.get_money() < user_sum + percent + (disp[1] if disp else 0):
+            raise Warning('не достаточно средств на счете')
+        if disp:
+            self.dispossession()
         self.user.sub_money(user_sum + percent)
         self.bonus_transaction()
-        # return [self.param.withdrawal_interest, percent]
         return percent
 
     def dispossession(self):
-        if self.user.get_money() >= self.param.dispossession_threshold:
-            percent = self.user.get_money() * self.param.dispossession_interest / 100
-            self.user.sub_money(percent, bonus=True)
+        percent = self.user.get_money() * self.param.dispossession_interest / 100
+        self.user.sub_money(percent, bonus=True)
 
     def is_dispossession(self):
         if self.user.get_money() >= self.param.dispossession_threshold:

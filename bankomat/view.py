@@ -31,16 +31,16 @@ class View:
                     print(f'добро пожаловать, {user_name}')
                     print('создан новый счет' if self.session.is_new_user() else 'загрузка данных счета...')
                     self.start()
-                except Exception as err:
-                    print(err)
+                except IOError as err:
+                    print(f'ошибка ввода-вывода {err}\n дальнейшее выполнение невозможно')
+                except (IndexError, KeyError) as err:
+                    print(f'внутренняя ошибка {err}\n дальнейшее выполнение невозможно')
+                finally:
                     self.session = None
-                    continue
+                    print(f'сессия пользователя {user_name} закончена\n')
             else:
                 print('нужно ввести имя')
                 continue
-
-            self.session = None
-            print(f'сессия пользователя {user_name} закончена\n')
 
     def start(self):
         self.show_menu()
@@ -62,7 +62,7 @@ class View:
         print(self.session.show_user())
 
     def top_up(self):
-        user_sum = self.session.round_money(float(input("введите сумму пополнения: ")))
+        user_sum = self.session.round_money(abs(float(input("введите сумму пополнения: "))))
         print(f'сумма округлена до {user_sum}, пополнение...')
         if disp := self.session.is_dispossession():
             print(f"внимание! будет снято {disp[0]} процентов - {disp[1]} у.е. (налог на богатство)")
@@ -72,7 +72,7 @@ class View:
         self.show_user()
 
     def take_off(self):
-        user_sum = self.session.round_money(float(input("введите сумму снятия: ")))
+        user_sum = self.session.round_money(abs(float(input("введите сумму снятия: "))))
         print(f'сумма округлена до {user_sum}, снятие...')
         if disp := self.session.is_dispossession():
             print(f"внимание! будет снято {disp[0]} процентов - {disp[1]} у.е (налог на богатство)")
@@ -81,8 +81,8 @@ class View:
             print(f"дополнительно снято: {perc_sum} у.е.")
             if perc := self.session.is_bonus_transactions():
                 print(f"зачислено {perc[0]} процента за каждую {perc[1]} операцию")
-        except Exception as err:
-            print(err)
+        except Warning as warn:
+            print(warn)
         self.show_user()
 
 

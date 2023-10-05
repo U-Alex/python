@@ -1,6 +1,7 @@
-import json
-import os
+# import json
+# import os
 from decimal import Decimal
+from database import Orm
 
 
 class User:
@@ -24,14 +25,9 @@ class User:
     def __str__(self):
         return f"клиент: {self.name}, средств на счете: {self.__money.quantize(Decimal('1.00'))} у.е."
 
-    def get_money(self) -> Decimal:
-        return self.__money
-
     def loading(self):
         try:
-            f_name = os.path.join(self.users_dir, f"{self.name}.json")
-            with open(f_name, 'r', encoding='utf-8') as f_json:
-                load_dict = json.load(f_json)
+            load_dict = Orm.loading(self)
             load_dict['_User__money'] = Decimal(load_dict['_User__money']).quantize(Decimal("1.00"))
             self.__dict__.update(load_dict)
             self.new_user = False
@@ -40,12 +36,13 @@ class User:
             self.new_user = True
 
     def saving(self):
-        f_name = os.path.join(self.users_dir, f"{self.name}.json")
         save_dict = self.__dict__.copy()
         save_dict['_User__money'] = str(save_dict['_User__money'].quantize(Decimal("1.00")))
         save_dict.pop('new_user')
-        with open(f_name, 'w', encoding='UTF-8') as f_json:
-            json.dump(save_dict, f_json, indent=4)
+        Orm.saving(self, save_dict)
+
+    def get_money(self) -> Decimal:
+        return self.__money
 
     def add_money(self, user_sum, bonus=False):
         self.__money += user_sum
