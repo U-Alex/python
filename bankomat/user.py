@@ -8,12 +8,15 @@ class User:
     users_dir = 'users'
     users_auth = []
 
+    def __new__(cls, name, logger):
+        if name in cls.users_auth:
+            logger.error(f'{name} is already joined to the session')
+            raise IndexError('пользователь уже присоединен к сессии')
+        return super().__new__(cls)
+
     def __init__(self, name, logger):
         self.name = name
         self.logger = logger
-        if name in self.users_auth:
-            self.logger.error(f'{self.name} is already joined to the session')
-            raise IndexError('пользователь уже присоединен к сессии')
         self.__class__.users_auth.append(name)
         self.new_user = False
         self.__money = Decimal('0.00')

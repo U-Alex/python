@@ -1,0 +1,11 @@
+bankomat - 2023-10-07 19:33:36,849 - DEBUG - Настройка логирования окончена!
+bankomat - 2023-10-07 19:33:39,048 - INFO - Uaa login
+bankomat - 2023-10-07 19:33:43,181 - INFO - Uaa logout
+bankomat - 2023-10-07 19:33:53,986 - DEBUG - Настройка логирования окончена!
+bankomat - 2023-10-07 19:33:55,682 - INFO - Uaa login
+bankomat - 2023-10-07 19:33:59,180 - INFO - Uaa logout
+bankomat - 2023-10-07 19:34:06,075 - DEBUG - Настройка логирования окончена!
+bankomat - 2023-10-07 19:34:08,566 - INFO - Uaa login
+bankomat - 2023-10-07 19:34:08,567 - ERROR - Uaa is already joined to the session
+bankomat - 2023-10-07 19:34:08,567 - CRITICAL - Uaa (IndexError, KeyError) пользователь уже присоединен к сессии
+bankomat - 2023-10-07 19:34:08,567 - INFO - Uaa logout
