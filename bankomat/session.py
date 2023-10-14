@@ -5,6 +5,10 @@ from user import User
 
 
 class Session:
+    """
+    класс для операций вычисления, все основные расчеты выполняются тут
+    использует класс parameters и экземпляр класса User
+    """
     def __init__(self, user_name, logger):
         self.logger = logger
         self.user = User(user_name, self.logger)

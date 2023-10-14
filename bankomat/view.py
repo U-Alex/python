@@ -4,6 +4,9 @@ from session import Session
 
 
 class View:
+    """
+    класс взаимодействия с пользователем, запускает сессию для операций и сами операции
+    """
     operations = {"m": "self.show_menu()",
                   "c": "self.show_user()",
                   "1": "self.top_up()",

@@ -2,6 +2,9 @@ from decimal import Decimal
 
 
 class Param:
+    """
+    класс - справочник
+    """
     dispossession_threshold = Decimal(5_000_000)
     dispossession_interest = 10                 # налог на богатство
 

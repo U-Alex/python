@@ -3,6 +3,9 @@ from database import Orm
 
 
 class User:
+    """
+    класс описывает сущность user и хранение его данных в условной db
+    """
     users_dir = 'users'
     users_auth = []
 
