@@ -1,6 +1,9 @@
-from view import View
-
-
 if __name__ == '__main__':
-    v = View(debug=True)
+    from view import View
+    from sys import argv
+
+    debug = None
+    if len(argv) > 1 and argv[1] == 'debug':
+        debug = True
+    v = View(debug)
     v.auth()
