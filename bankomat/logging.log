@@ -12,3 +12,8 @@ bankomat - 2023-10-07 19:34:08,567 - INFO - Uaa logout
 bankomat - 2023-10-11 21:22:42,906 - DEBUG - Настройка логирования окончена!
 bankomat - 2023-10-11 21:22:49,388 - INFO - Uaa login
 bankomat - 2023-10-11 21:22:54,318 - INFO - Uaa logout
+bankomat - 2023-10-14 19:30:59,995 - INFO - Uaa login
+bankomat - 2023-10-14 19:31:01,514 - INFO - Uaa top_up success
+bankomat - 2023-10-14 19:31:02,673 - INFO - Uaa top_up success
+bankomat - 2023-10-14 19:31:03,600 - INFO - Uaa take_off success
+bankomat - 2023-10-14 19:31:04,501 - INFO - Uaa logout
